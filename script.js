@@ -4,7 +4,7 @@ var ctxt,    //для зберігання Context
 	
 var ball={x:400, y:575, speed:5, r:10};//object ball
 var bord={x:365, y:585, w:70, h:3};//object bord
-var box={x:50, y:50, w:40, h:20};
+var box={x:50, y:50, w:40, h:20, obj};
 var angle=45;
 var pii=angle*Math.PI/180;
 var vx,xy;
