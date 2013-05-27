@@ -41,9 +41,14 @@ function init () {
 	ctxt=canvas.getContext("2d");
 	w=canvas.width;
 	h=canvas.height;
-	
 	bagin_game();
-		 
+	box.obj=[];
+	for (i=1; i<15; i++){
+		box.obj[i]=[];
+		for (j=1; j<7; j++){
+			box.obj[i][j]=1;
+		}
+	}
 }
 
 function bagin_game() {
