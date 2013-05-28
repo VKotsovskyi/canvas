@@ -1,4 +1,4 @@
-var ctxt,    //для зберігання Context
+var ctxt,    //для зберігання Context qjgnb
 	canvas,  //для звернення до канви
 	w,d,	 //для роботи з холмтом
 	game=true;    
