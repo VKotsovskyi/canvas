@@ -1,12 +1,19 @@
-var ctxt,    //для зберігання Context qjgnb
+var 	ctxt,    //для зберігання Context 
 	canvas,  //для звернення до канви
 	w,d,	 //для роботи з холмтом
-	game=true;    
+	game=true,
+	box;    
 	
 var ball={x:400, y:570, speed:5, r:10};//object ball
-var bord={x:365, y:585, w:70, h:3};//object bord
-var box={x:42, y:22, w:40, h:20, obj:0};
-var angle=45;
+var bord={x:350, y:585, w:100, h:3};//object bord
+var BOX=function(x){
+	this.x=x;
+	this.y=22;
+	this.w=40;
+	this.h=20;
+	this.obj;
+}                                 
+var angle=60;
 var pii=angle*Math.PI/180;
 var vx,xy;
 
@@ -42,14 +49,17 @@ function init () {
 	ctxt=canvas.getContext("2d");
 	w=canvas.width;
 	h=canvas.height;
-	bagin_game();
+	
+	box=new BOX(42);
 	box.obj=[];
-	for (i=1; i<15; i++){
+	for (var i=1; i<9; i++){
 		box.obj[i]=[];
-		for (j=1; j<7; j++){
+		for (var j=1; j<18; j++){
 			box.obj[i][j]=1;
+			
 		}
 	}
+	bagin_game();
 }
 
 function bagin_game() {
@@ -68,8 +78,8 @@ function bagin_game() {
 	  	angle=360-angle;
 	  	update_angle ();
 	  }
-	  if (ball.y+ball.r>=bord.y+3){
-	  	if((ball.x+ball.r>=bord.x-1 && ball.x+ball.r<bord.x+bord.w+1)){
+	  if (ball.y+ball.r>=bord.y){
+	  	if((ball.x+ball.r>=bord.x && ball.x+ball.r<bord.x+bord.w)){
 		angle=360-angle;
 	  	update_angle ();
 	 	}
@@ -78,6 +88,14 @@ function bagin_game() {
 	  	}
 	  }
 	  
+	var row=Math.floor(ball.y/(box.h+2));
+	var col=Math.floor(ball.x/(box.w+2));
+	if (ball.y<9*(box.h+2) && row>0 && col>0 && box.obj[row][col]>0 ){
+		box.obj[row][col]=0;
+		angle=360-angle;
+	  	update_angle ();
+	}
+	
 	  
 	  /*drowing ball*/
 	  
@@ -96,21 +114,23 @@ function bagin_game() {
 	  ctxt.beginPath();
 	  ctxt.fillRect(bord.x, bord.y, bord.w, bord.h);
 	  ctxt.closePath();
-	  ctxt.fill();
 	  
-	 
+	  
+	 //drowing boxes
 		
 		ctxt.fillStyle="#ffaa88";
-		for (i=1; i<18; i++){
-			
-			for (j=1; j<9; j++){
+		for (var i=1; i<9; i++){			
+			for (var j=1; j<18; j++){
+				if (box.obj[i][j]==1){
 				ctxt.beginPath();
-	  			ctxt.fillRect((i*box.x+5), (j*box.y+5 ), box.w, box.h);
+	  			ctxt.fillRect((j*box.x), (i*box.y), box.w, box.h);
 	  			ctxt.closePath();
+				}
+				
 			}
 		}
 	  	
-	  	ctxt.fill();
+	  	
 	  	
 	  	
 	  	
